@@ -1,0 +1,30 @@
+class mainlist:
+    def __init__(self):
+        import sys
+        import os
+        from win32api import ShellExecute
+
+        self.subfolder = r'C:\my\subfunc'
+        self.cmdlist = {}
+
+        self.subfunctionfiles =[each for each in os.listdir(self.subfolder) if each.endswith('py') or each.endswith('exe') or each.endswith('pl')]
+        for each in self.subfunctionfiles:
+            self.cmdlist[os.path.splitext(each)[0]]=each
+        while True:
+            print '\tthe function you can used list:'
+            print '\t>>exit for quit'
+            for each in self.cmdlist:
+                print '\t>>'+each
+            cmdinput = raw_input('>>')
+            cmdargvlist =cmdinput.split(' ')
+            if cmdinput == 'exit':
+                return
+            elif cmdargvlist[0] in self.cmdlist:#
+                ShellExecute(1, 'open',os.path.join( self.subfolder ,self.cmdlist[cmdargvlist[0]]),cmdinput[len(cmdargvlist[0]):],os.getcwd(),1)
+            else:
+                print 'The Wrong cmd input!'
+
+#we can drag the folder for dst
+#or read a txt file to fix the upload routing
+
+main = mainlist()
