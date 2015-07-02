@@ -1,0 +1,41 @@
+import getopt
+import sys
+
+def usage():
+    print("Usage:%s [-h|-z|-u] [--help|--zip|--upload] args...." %'ku2');
+
+def main():
+    if not sys.argv[1:]:
+        print 'default run 1'
+    else:
+        try:
+            opts, args = getopt.getopt(sys.argv[1:], "hzuo:v", ["help","zip", "upload","output="])
+##                    output = None
+##            print args
+            for o, a in opts:
+                if o == "-v":
+                    pass
+                elif o in ("-h", "--help"):
+                    usage()
+                elif o in ("-u", "--upload"):
+                    print 'upload zip file'
+                elif o in ("-z", "--zip"):
+                    print 'zip file'
+
+##                elif o in ("-o", "--output"):
+##                    output = a
+##                    print 'output'
+                else:
+                    assert False, "unhandled option"
+            for arg in args:
+                print arg
+            # ...
+        except getopt.GetoptError, err:
+            # print help information and exit:
+            print str(err) # will print something like "option -a not recognized"
+            usage()
+
+
+if __name__ == "__main__":
+    main()
+    raw_input('press enter to quit')
